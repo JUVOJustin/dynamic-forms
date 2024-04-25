@@ -38,13 +38,6 @@
     }
   },
   "require": {
-    "timber/timber": "^2.0",
-    "wpengine/advanced-custom-fields-pro": "^6"
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://connect.advancedcustomfields.com"
-    }
-  ]
+    "timber/timber": "^2.0"
+  }
 }
