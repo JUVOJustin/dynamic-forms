@@ -1,0 +1,13 @@
+<div class="error" x-show="error" x-transition>
+    {{ __('The form could not be submitted:', 'calendar-booking') }}
+    <template x-if="Array.isArray(error)">
+        <ul>
+            <template x-for="err in error">
+                <li x-text="err.message"></li>
+            </template>
+        </ul>
+    </template>
+</div>
+<div class="success" x-show="success">
+    <span x-text="success.message"></span>
+</div>

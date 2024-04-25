@@ -1,0 +1,19 @@
+<div class="navigation">
+    {% if not loop.first %}
+        <button type="button" class="navigation__btn--prev"
+                @click="prevPage('page-{{ loop.index }})')">
+            {{ form.buttons.prev_label }}
+        </button>
+    {% endif %}
+    {% if loop.last %}
+        <button x-bind:disabled="false" type="submit" class="navigation__btn--submit">
+            {{ form.buttons.submit_label }}
+        </button>
+    {% endif %}
+    {% if not loop.last %}
+        <button x-bind:disabled="false" type="button" class="navigation__btn--next"
+                @click="nextPage('page-{{ loop.index }}')">
+            {{ form.buttons.next_label }}
+        </button>
+    {% endif %}
+</div>

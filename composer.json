@@ -1,0 +1,50 @@
+{
+  "name": "juvo/dynamic-forms",
+  "description": "Blabla",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Justin Vogt",
+      "email": "mail@juvo-design.de",
+      "homepage": "https://juvo-design.de"
+    }
+  ],
+  "require-dev": {
+    "phpstan/phpstan": "^1.7",
+    "php-stubs/acf-pro-stubs": "^6.0",
+    "szepeviktor/phpstan-wordpress": "^1.1",
+    "phpstan/extension-installer": "^1.1",
+    "yoast/phpunit-polyfills": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dynamic_Forms\\": "src/"
+    }
+  },
+  "scripts": {
+    "static-analyse": "@php ./vendor/bin/phpstan analyse"
+  },
+  "extra": {
+    "installer-paths": {
+      "vendor/{$vendor}/{$name}/": [
+        "type:wordpress-plugin"
+      ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "composer/installers": true
+    }
+  },
+  "require": {
+    "timber/timber": "^2.0",
+    "wpengine/advanced-custom-fields-pro": "^6"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://connect.advancedcustomfields.com"
+    }
+  ]
+}

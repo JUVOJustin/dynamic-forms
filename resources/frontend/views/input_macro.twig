@@ -1,0 +1,104 @@
+{% macro input_text(label, name, placeholder='', value='', required=false) %}
+    <div class="input--wrapper {{ name }}"
+         x-data="textInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ placeholder  }}')"
+         x-id="['{{ name }}']"
+         :id="idWrapper"
+    >
+        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <input
+                :type="type"
+                :id="id"
+                :name="name"
+                :required="required"
+                x-model="value"
+                placeholder="{{ placeholder }}"
+        />
+    </div>
+{% endmacro %}
+
+{% macro input_email(label, name, placeholder='', value='', required=false) %}
+    <div
+            class="input--wrapper {{ name }}"
+            x-data="emailInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ placeholder  }}')"
+            x-id="['{{ name }}']"
+            :id="idWrapper"
+    >
+        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <input
+                :type="type"
+                :id="id"
+                :name="name"
+                :required="required"
+                x-model="value"
+                placeholder="{{ placeholder }}"
+        />
+    </div>
+{% endmacro %}
+
+{% macro input_phone(label, name, placeholder='', value='', required=false) %}
+    <div
+            class="input--wrapper {{ name }}"
+            x-data="phoneInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ placeholder  }}')"
+            x-id="['{{ name }}']"
+            :id="idWrapper"
+    >
+        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <input
+                :type="type"
+                :id="id"
+                :name="name"
+                :required="required"
+                x-model="value"
+                placeholder="{{ placeholder }}"
+        />
+    </div>
+{% endmacro %}
+
+{% macro input_number(label, name, value='', min=1, max='', step=1, required=false) %}
+    <div
+            class="input--wrapper {{ name }}"
+            x-data="numberInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ min }}', '{{ max }}', '{{ step }}')"
+            x-id="['{{ name }}']"
+            :id="idWrapper"
+    >
+        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <input
+                :type="type"
+                :id="id"
+                :name="name"
+                :required="required"
+                x-model="value"
+                :min="min"
+                :max="max"
+                :step="step"
+        />
+    </div>
+{% endmacro %}
+
+{% macro input_daterange(name, labelCheckin, labelCheckout, bookedDates, config) %}
+    <div
+            class="input--datepicker {{ name }}"
+            x-data='datepickerInput("{{ name }}", "{{ labelCheckin }}", "{{ labelCheckout }}", {{ bookedDates|json_encode()}}, {{config|json_encode()}})'
+            :id="idWrapper"
+            x-id="['{{ name }}']"
+            @click.outside="picker.hide()"
+    >
+        <div class="input--wrapper checkin" id="checkin-wrapper">
+            <label :for="id + '-checkin'" x-text="labelCheckin" x-show="labelCheckin"></label>
+            <input
+                    type="text"
+                    :id="id + '-checkin'"
+                    :name="name + '-checkin'"
+            />
+        </div>
+        -
+        <div class="input--wrapper checkout" id="checkout-wrapper">
+            <label :for="id + '-checkout'" x-text="labelCheckin" x-show="labelCheckin"></label>
+            <input
+                    type="text"
+                    :id="id + '-checkout'"
+                    :name="name + '-checkout'"
+            />
+        </div>
+    </div>
+{% endmacro %}

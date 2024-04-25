@@ -1,0 +1,64 @@
+{% import 'input_macro.twig' as inputs %}
+
+<div class="juvo-calendar-booking" x-data="formDatePicker({{ form_id }})" x-cloak>
+    <div x-show="isLoading" class="overlay">
+        <span class="loading-indicator"></span>
+    </div>
+    <!-- Maybe Show Success or error message -->
+    {% include 'success-error.twig' %}
+    <form x-ref="form" x-show="showForm" @submit.prevent="submit()">
+
+        <!-- Pages -->
+        {% for page in form.get_fields_paginated() %}
+            <div
+                    class="page"
+                    x-show="page === {{ loop.index }}"
+                    x-transition
+                    x-ref="page-{{ loop.index }}"
+            >
+
+                {% for field in page %}
+
+                    {% if field.type == "datepicker" %}
+                        {{ inputs.input_daterange(field.name, field.labelCheckin, field.labelCheckout, field.bookedDates, field.config) }}
+                    {% endif %}
+
+                    {% if field.type == "guests" %}
+                        {{ inputs.input_number( field.label, 'guests', field.min, field.min, field.max, 1, field.required, 'true') }}
+                    {% endif %}
+
+                    {% if field.type == "animals" %}
+                        {{ inputs.input_number( field.label, 'animals', field.min, field.min, field.max, 1, field.required, 'true') }}
+                    {% endif %}
+
+                    {% if field.type == "text" %}
+                        {{ inputs.input_text( field.label, field.name, '', field.value, field.required) }}
+                    {% endif %}
+
+                    {% if field.type == "email" %}
+                        {{ inputs.input_email( field.label, field.name, '', field.value, field.required) }}
+                    {% endif %}
+
+                    {% if field.type == "phone" %}
+                        {{ inputs.input_phone( field.label, field.name, '', field.value, field.required) }}
+                    {% endif %}
+
+                {% endfor %}
+
+                <!-- Page Navigation -->
+                {% include 'navigation.twig' %}
+
+            </div>
+        {% endfor %}
+
+        <div class="price">
+            <div x-show="isPriceLoading" class="overlay">
+                <span class="loading-indicator"></span>
+            </div>
+            <div class="price--total">
+                Total: <span x-text="costs.total"></span> € *
+            </div>
+            inkl. 19% MwSt.
+        </div>
+    </form>
+</div>

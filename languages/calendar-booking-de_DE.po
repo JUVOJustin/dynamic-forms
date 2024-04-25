@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: JUVO Calendar Booking\n"
+"POT-Creation-Date: 2024-02-07 12:41+0100\n"
+"PO-Revision-Date: 2024-02-07 12:44+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: calendar-booking.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: vendor\n"
+
+#: src/Ajax.php:29
+msgid "Booking request details:"
+msgstr "Details zur Buchungsanfrage:"
+
+#: src/Ajax.php:35
+#, php-format
+msgid "Period: %s - %s"
+msgstr "Datumsauswahl: %s - %s"
+
+#: src/Ajax.php:45
+msgid "New booking request"
+msgstr "Neue Buchungsanfrage"
+
+#: src/Ajax.php:50
+msgid "Your booking request has been sent successfully."
+msgstr "Ihre Buchungsanfrage wurde erfolgreich versendet."
+
+#: src/Ajax.php:124
+msgid "Invalid nonce"
+msgstr "Ungültige Nonce"
+
+#: src/Ajax.php:130
+msgid "Missing form_id parameter"
+msgstr "Fehlender form_id Parameter"
+
+#: src/Ajax.php:136
+msgid "Missing fields parameter"
+msgstr "Fehlender „fields“ Parameter"
+
+#: src/Form.php:216
+msgid "Datepicker"
+msgstr "Datumsauswahl"
+
+#: src/Form.php:219
+#, php-format
+msgid "\"%s\" must be filled"
+msgstr "„%s“ muss ausgefüllt sein"
+
+#: src/Form.php:227
+msgid "You need to enter a valid number"
+msgstr "Du musst eine gültige Zahl eingeben"
+
+#: src/Form.php:245 src/Form.php:263
+msgid "You need to select a valid date"
+msgstr "Du musst ein gültiges Datum auswählen"
+
+#: src/Form.php:251
+msgid "You need to select checkin and checkout date"
+msgstr "Du musst gültige Checkin und Checkout Daten angeben"
+
+#: src/Form.php:270
+msgid "Checkout date needs to be after checkin date"
+msgstr "Der Checkout muss nach dem Checkin sein"
+
+#: src/Form.php:283
+msgid "You need to enter a valid email"
+msgstr "Du musst eine gültige E-Mail Adresse angeben"
+
+#: src/Form.php:290
+msgid "You need to enter a valid phone number"
+msgstr "Du musst eine gültige Telefonnummer angeben"
+
+#: src/Form.php:297
+msgid "You need to enter a valid text"
+msgstr "Du musst gültigen Text angeben"
+
+#: resources/frontend/views/success-error.twig:2
+msgid "The form could not be submitted:"
+msgstr "Das Formular konnte nicht abgesendet werden:"
+
+#. Plugin Name of the plugin/theme
+msgid "JUVO Calendar Booking"
+msgstr "JUVO Calendar Booking"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://juvo-design.de"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This is a short description of what the plugin does. It's displayed in the "
+"WordPress admin area."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Justin Vogt"
+msgstr ""
+
+#~ msgid "Please fix the following problems:"
+#~ msgstr "Bitte löse die folgenden Probleme:"

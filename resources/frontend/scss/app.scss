@@ -1,0 +1,145 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+:root {
+  --jcb-input-wrapper-bg: #f5f5f5;
+  --jcb-form-space: 10px;
+  --jcb-form-gap: var(--jcb-form-space);
+  --jcb-input-wrapper-padding: var(--jcb-form-space);
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+span.easepick-wrapper {
+  left: 0;
+}
+
+.juvo-calendar-booking {
+
+  .success,
+  .error {
+    padding: var(--jcb-form-space);
+    line-height: 1;
+  }
+
+  .success {
+    background-color: #90ee90;
+  }
+
+  .error {
+    background-color: #fa5a5a;
+  }
+
+  .overlay {
+    position: absolute; /* Position absolutely within a relative container */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background: rgb(255 255 255 / 60%);
+    z-index: 9; /* Ensure it's above other elements */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    display: flex; /* Use flexbox for centering */
+
+    /* The spinning animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-indicator {
+      border: 5px solid #f3f3f3; /* Light grey border */
+      border-top: 5px solid #3498db; /* Blue color */
+      border-radius: 50%; /* Circular shape */
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite; /* Spinning animation */
+    }
+  }
+
+  form {
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--jcb-form-gap);
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      gap: var(--jcb-form-gap);
+    }
+
+    .navigation {
+      display: flex;
+      gap: var(--jcb-form-gap);
+      align-items: center;
+      justify-content: space-between;
+
+      &__btn {
+
+        // Base styles applied to all modifiers
+        &, &--next, &--prev, &--submit {
+          justify-self: center;
+          padding: var(--jcb-form-space) calc(var(--jcb-form-space) * 2);
+          border-radius: 0;
+          line-height: 1;
+        }
+
+        // Modifier specific styles
+        &--next {
+          margin-left: auto;
+        }
+
+        &--prev {
+          margin-right: auto;
+        }
+      }
+    }
+
+    input {
+      text-align: left;
+      border: none;
+      background: white;
+      padding: 0.5rem 1rem;
+    }
+
+    .input--datepicker {
+      display: flex;
+      flex-direction: row;
+      gap: var(--jcb-form-gap);
+      align-items: center;
+
+      input {
+        background: transparent;
+        padding: 0;
+      }
+    }
+
+    .input--wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: var(--jcb-input-wrapper-padding);
+      background: var(--jcb-input-wrapper-bg);
+      flex: 1;
+    }
+
+    .price {
+      position: relative;
+
+      &--total {
+        font-size: 2em;
+        font-weight: bold;
+      }
+    }
+  }
+
+}

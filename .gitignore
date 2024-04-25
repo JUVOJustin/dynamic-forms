@@ -1,0 +1,10 @@
+/vendor/
+/node_modules/
+setup.sh
+.idea
+dist/
+.budfiles/
+/tests/cypress/screenshots/
+/tests/cypress/videos/
+/tests/setup/plugins
+/tests/setup/vendor

@@ -1,0 +1,17 @@
+.container.range-plugin .calendar>.days-grid>.day.end,
+.container.range-plugin .calendar>.days-grid>.day.start {
+    z-index: 1;
+    border: 0px;
+}
+
+.container.range-plugin .calendar>.days-grid>.day.start {
+    background: linear-gradient(to bottom right, transparent 50%, var(--color-bg-inrange) 50%);
+}
+
+.container.range-plugin .calendar>.days-grid>.day.end {
+    background: linear-gradient(to top right, var(--color-bg-inrange) 50%, transparent 50%);
+}
+
+.calendar>.days-grid>.day {
+    margin: 1px;
+}

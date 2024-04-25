@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "^6.21.0",
+    "@roots/bud-preset-recommend": "^6.21.0",
+    "@roots/bud-preset-wordpress": "^6.21.0"
+  },
+  "scripts": {
+    "development": "npx bud build development",
+    "production": "npx bud build production"
+  },
+  "dependencies": {
+    "@easepick/bundle": "^1.2.1",
+    "alpinejs": "^3.13.10"
+  }
+}
