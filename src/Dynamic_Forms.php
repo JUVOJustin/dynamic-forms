@@ -95,35 +95,19 @@ class Dynamic_Forms
             ));
         });
 
-        // ACF Pro
-        if (
-            !is_plugin_active('advanced-custom-fields/acf.php')
-            && !is_plugin_active('advanced-custom-fields-pro/acf.php')
-        ) {
+        // Save json data if dev env
+        add_filter('acf/settings/save_json/key=group_65afe63ae981c', function($path): string {
+            return DYNAMIC_FORMS_PATH . 'resources/acf-json';
+        });
+        add_filter('acf/settings/save_json/key=post_type_65afc996ee80d', function($path): string {
+            return DYNAMIC_FORMS_PATH . 'resources/acf-json';
+        });
 
-            // Include the ACF plugin.
-            include_once(DYNAMIC_FORMS_PATH . 'vendor/wpengine/advanced-custom-fields-pro/acf.php');
-
-            // Customize the URL setting to fix incorrect asset URLs.
-            add_filter('acf/settings/url', function(string $url) {
-                return DYNAMIC_FORMS_URL . 'vendor/wpengine/advanced-custom-fields-pro/';
-            });
-
-            // Save json data if dev env
-            add_filter('acf/settings/save_json/key=group_65afe63ae981c', function($path): string {
-                return DYNAMIC_FORMS_PATH . 'resources/acf-json';
-            });
-            add_filter('acf/settings/save_json/key=post_type_65afc996ee80d', function($path): string {
-                return DYNAMIC_FORMS_PATH . 'resources/acf-json';
-            });
-
-            //Load Json
-            add_filter('acf/settings/load_json', function(array $paths): array {
-                $paths[] = DYNAMIC_FORMS_PATH . 'resources/acf-json';
-                return $paths;
-            });
-        }
-
+        //Load Json
+        add_filter('acf/settings/load_json', function(array $paths): array {
+            $paths[] = DYNAMIC_FORMS_PATH . 'resources/acf-json';
+            return $paths;
+        });
     }
 
     /**
