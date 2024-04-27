@@ -22,16 +22,16 @@ export default async bud => {
             "admin": [`/admin/js/app.js`, `/admin/scss/app.scss`]
         })
 
-        /*.provide({
+        .provide({
             jquery: ['$', 'jQuery'],
         })
 
         .copyFile(['../node_modules/@easepick/bundle/dist/index.css', `css/easepicker.css`])
         .copyFile(['frontend/scss/easepicker.custom.css', `css`])
 
-        /!**
+        /**
          * Copy static assets from `sources/static` to `dist/static`
-         *!/
+         */
         .assets({
             from: bud.path(`@src/static`),
             to: bud.path(`@dist/static`),
@@ -39,5 +39,5 @@ export default async bud => {
         })
         .splitChunks()
         .minimize(bud.isProduction)
-        .proxy(false) // Disable since we are using ddev*/
+        .proxy(false) // Disable since we are using ddev
 }
