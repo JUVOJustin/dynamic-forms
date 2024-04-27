@@ -13,7 +13,7 @@
  * @package           Dynamic_Forms
  *
  * @wordpress-plugin
- * Plugin Name:       JUVO Calendar Booking
+ * Plugin Name:       Dynamic Forms
  * Plugin URI:        https://juvo-design.de
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
@@ -21,6 +21,7 @@
  * Author URI:        https://juvo-design.de
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Requires Plugins:  advanced-custom-fields-pro
  * Text Domain:       calendar-booking
  * Domain Path:       /languages
  */
@@ -48,19 +49,19 @@ require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 /**
  * The code that runs during plugin activation.
  */
-function activate_calendar_booking() {
+function activate_dynamic_forms() {
     Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_calendar_booking() {
+function deactivate_dynamic_forms() {
     Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_calendar_booking' );
-register_deactivation_hook( __FILE__, 'deactivate_calendar_booking' );
+register_activation_hook( __FILE__, 'activate_dynamic_forms' );
+register_deactivation_hook( __FILE__, 'deactivate_dynamic_forms' );
 
 /**
  * Begins execution of the plugin.
