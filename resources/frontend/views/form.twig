@@ -23,12 +23,8 @@
                         {{ inputs.input_daterange(field.name, field.labelCheckin, field.labelCheckout, field.bookedDates, field.config) }}
                     {% endif %}
 
-                    {% if field.type == "guests" %}
-                        {{ inputs.input_number( field.label, 'guests', field.min, field.min, field.max, 1, field.required, 'true') }}
-                    {% endif %}
-
-                    {% if field.type == "animals" %}
-                        {{ inputs.input_number( field.label, 'animals', field.min, field.min, field.max, 1, field.required, 'true') }}
+                    {% if field.type == "number" %}
+                        {{ inputs.input_number( field.label, field.name, field.min, field.min, field.max, 1, field.required, 'true') }}
                     {% endif %}
 
                     {% if field.type == "text" %}
