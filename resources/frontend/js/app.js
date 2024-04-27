@@ -1,4 +1,3 @@
-/*
 import Alpine from 'alpinejs'
 window.Alpine = Alpine
 
@@ -24,10 +23,7 @@ Alpine.data('formDatePicker', function (form_id) {
             });
 
             this.$watch('values', () => {
-
-                if (this.values.datepicker && this.values.datepicker.checkin && this.values.datepicker.checkout && this.values.guests) {
-                    this.requestPrice();
-                }
+                this.requestPrice();
 
                 this.error = "";
             });
@@ -36,13 +32,13 @@ Alpine.data('formDatePicker', function (form_id) {
         requestPrice() {
             this.isPriceLoading = true;
             $.ajax({
-                url: calendar_booking.ajax_url,
+                url: dynamic_forms.ajax_url,
                 type: 'post',
                 data: {
                     action: 'calc_price',
                     form_id: this.form_id,
-                    post_id: calendar_booking.post_id,
-                    nonce: calendar_booking.nonce,
+                    post_id: dynamic_forms.post_id,
+                    nonce: dynamic_forms.nonce,
                     fields: this.values
                 }
             }).done((response) => {
@@ -60,12 +56,12 @@ Alpine.data('formDatePicker', function (form_id) {
         submit() {
             this.isLoading = true;
             $.ajax({
-                url: calendar_booking.ajax_url,
+                url: dynamic_forms.ajax_url,
                 type: 'post',
                 data: {
                     action: 'submit',
-                    nonce: calendar_booking.nonce,
-                    post_id: calendar_booking.post_id,
+                    nonce: dynamic_forms.nonce,
+                    post_id: dynamic_forms.post_id,
                     form_id: this.form_id,
                     fields: this.values
                 }
@@ -124,4 +120,4 @@ import './input-email.js';
 import './input-text.js';
 import './input-datepicker.js';
 
-Alpine.start()*/
+Alpine.start()
