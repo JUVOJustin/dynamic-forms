@@ -77,6 +77,7 @@ class Form
                 $field['name'] = $field['type'];
             }
 
+            // Handle fields custom settings
             switch($field['type']) {
                 case "datepicker":
                     $field['bookedDates'] = [];
@@ -112,7 +113,7 @@ class Form
                 continue;
             }
 
-            $field = apply_filters('calendar_booking_after_field_parse', $field, $this->post_id);
+            $field = apply_filters('dynamic_forms_after_field_parse', $field, $this->post_id);
 
             $current_page[$field['name']] = $field;
 
@@ -133,7 +134,7 @@ class Form
      */
     public function get_costs()
     {
-        return apply_filters('calendar_booking_calculate_total', [
+        return apply_filters('dynamic_forms_calculate_total', [
             'total' => 0,
         ], $this, $this->post_id);
     }
@@ -204,7 +205,7 @@ class Form
             return new WP_Error();
         }
 
-        $val = apply_filters('calendar_booking_before_field_validation_value', $val, $field, $this->post_id);
+        $val = apply_filters('dynamic_forms_before_field_validation_value', $val, $field, $this->post_id);
 
         // Check required
         if ($field['required'] && empty($val)) {
@@ -221,8 +222,7 @@ class Form
         }
 
         switch ($field['type']) {
-            case "guests":
-            case "animals":
+            case "number":
                 if (!is_numeric($val)) {
                     $error->add('invalid_number', __('You need to enter a valid number', 'calendar-booking'));
                     break;
@@ -248,7 +248,7 @@ class Form
 
                 // Check if dates are empty
                 if (empty($val['checkin']) || empty($val['checkout'])) {
-                    $error->add('missing_dates', __('You need to select checkin and checkout date', 'calendar-booking'));
+                    $error->add('missing_dates', __('You need to select a start and end date', 'calendar-booking'));
                     break;
                 }
 
@@ -267,7 +267,7 @@ class Form
 
                 // Check if checkout is after checkin
                 if ($checkin->getTimestamp() > $checkout->getTimestamp()) {
-                    $error->add('invalid_dates', __('Checkout date needs to be after checkin date', 'calendar-booking'));
+                    $error->add('invalid_dates', __('End date needs to be after start date', 'calendar-booking'));
                     break;
                 }
 
@@ -299,12 +299,12 @@ class Form
                 break;
         }
 
-        $error = apply_filters('calendar_booking_field_validation', $error, $field, $this->post_id);
+        $error = apply_filters('dynamic_forms_field_validation', $error, $field, $this->post_id);
 
         // Set val to field by reference
         $field['value'] = $val;
 
-        $field = apply_filters('calendar_booking_after_field_validation', $field, $error, $this->post_id);
+        $field = apply_filters('dynamic_forms_after_field_validation', $field, $error, $this->post_id);
 
         return $error;
 
