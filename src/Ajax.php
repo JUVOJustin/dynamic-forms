@@ -119,7 +119,7 @@ class Ajax
      * @return void
      */
     private function check_pre_conditions() {
-        if ( ! wp_verify_nonce( $_POST['nonce'], 'calendar_booking_nonce' ) ) {
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'dynamic_forms_nonce' ) ) {
             wp_send_json_error([
                 'message' => __('Invalid nonce', 'calendar-booking')
             ]);
