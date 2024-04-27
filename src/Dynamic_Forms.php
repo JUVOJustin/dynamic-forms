@@ -99,6 +99,9 @@ class Dynamic_Forms
         add_filter('acf/settings/save_json/key=group_65afe63ae981c', function($path): string {
             return DYNAMIC_FORMS_PATH . 'resources/acf-json';
         });
+        add_filter('acf/settings/save_json/key=group_662d49486998b', function($path): string {
+            return DYNAMIC_FORMS_PATH . 'resources/acf-json';
+        });
         add_filter('acf/settings/save_json/key=post_type_65afc996ee80d', function($path): string {
             return DYNAMIC_FORMS_PATH . 'resources/acf-json';
         });
@@ -136,7 +139,7 @@ class Dynamic_Forms
     {
 
         add_action('admin_enqueue_scripts', function() {
-            $this->enqueue_bud_entrypoint('admin');
+            $this->enqueue_bud_entrypoint('dynamic-forms-admin');
         }, 100);
 
     }
@@ -152,10 +155,10 @@ class Dynamic_Forms
     {
 
         add_action('wp_enqueue_scripts', function() {
-            $this->enqueue_bud_entrypoint('frontend', [
+            $this->enqueue_bud_entrypoint('dynamic-forms-frontend', [
                 'ajax_url'       => admin_url('admin-ajax.php'),
                 'post_id'        => get_the_ID(),
-                'nonce'          => wp_create_nonce('calendar_booking_nonce'),
+                'nonce'          => wp_create_nonce('dynamic_forms_nonce'),
                 'easepicker_css' => [
                     DYNAMIC_FORMS_URL . 'dist/css/easepicker.css',
                     DYNAMIC_FORMS_URL . 'dist/css/easepicker.custom.css'
@@ -170,8 +173,6 @@ class Dynamic_Forms
         $this->loader->add_action('wp_ajax_nopriv_calc_price', $ajax, 'ajax_calc_price');
         $this->loader->add_action('wp_ajax_submit', $ajax, 'ajax_submit');
         $this->loader->add_action('wp_ajax_nopriv_submit', $ajax, 'ajax_submit');
-
-        $this->loader->add_filter('acf/load_field/key=field_65afe63b5fa8e', new Acf_Form(), 'add_field_to_layouts');
 
         $this->loader->add_shortcode('calendar_form', new Shortcodes(), 'calendar_form');
 
