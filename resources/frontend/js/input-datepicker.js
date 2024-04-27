@@ -36,7 +36,7 @@ document.addEventListener('alpine:init', () => {
                 const checkout = this.$refs.form.querySelector('#' + this.id + '-checkout');
 
                 let config = {
-                    css: calendar_booking.easepicker_css,
+                    css: dynamic_forms.easepicker_css,
                     element: checkin,
                     plugins: [
                         AmpPlugin,
