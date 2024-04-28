@@ -8,6 +8,12 @@ export default async bud => {
      */
     bud
 
+        .config({
+            output: {
+                chunkLoadingGlobal: 'dynamic-forms',
+            },
+        })
+
         /**
          * Set the project source directory
          */
