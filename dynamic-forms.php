@@ -73,10 +73,7 @@ register_deactivation_hook( __FILE__, 'deactivate_dynamic_forms' );
  * @since    1.0.0
  */
 function run_dynamic_forms() {
-
-	$version = "1.0.0";
-	$plugin = new Dynamic_Forms($version);
+	$plugin = new Dynamic_Forms();
 	$plugin->run();
-
 }
 run_dynamic_forms();

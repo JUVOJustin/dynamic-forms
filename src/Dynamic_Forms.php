@@ -23,6 +23,9 @@ use Timber\Timber;
 class Dynamic_Forms
 {
 
+    const PLUGIN_NAME = 'dynamic_forms';
+    const PLUGIN_VERSION = '1.0.0';
+
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin
@@ -30,20 +33,6 @@ class Dynamic_Forms
      * @var Loader
      */
     protected $loader;
-
-    /**
-     * The unique identifier of this plugin.
-     *
-     * @var string
-     */
-    protected $plugin_name;
-
-    /**
-     * The current version of the plugin.
-     *
-     * @var string
-     */
-    protected $version;
 
     /**
      * Define the core functionality of the plugin.
@@ -54,11 +43,8 @@ class Dynamic_Forms
      *
      * @since    1.0.0
      */
-    public function __construct(string $version)
+    public function __construct()
     {
-
-        $this->plugin_name = 'dynamic_forms';
-        $this->version = $version;
 
         $this->load_dependencies();
         $this->set_locale();
@@ -86,13 +72,13 @@ class Dynamic_Forms
         add_filter('timber/locations', function($locations) {
 
             if (file_exists(get_stylesheet_directory() . "/dynamic-forms/frontend/")) {
-                $locations[] = get_stylesheet_directory() . "/dynamic-forms/frontend/";
+                $locations[] = [get_stylesheet_directory() . "/dynamic-forms/frontend/"];
             }
 
-            return array_merge($locations, array(
-                DYNAMIC_FORMS_PATH . "resources/frontend/views",
-                DYNAMIC_FORMS_PATH . "resources/admin/views",
-            ));
+            $locations[] = [DYNAMIC_FORMS_PATH . "resources/frontend/views"];
+            $locations[] = [DYNAMIC_FORMS_PATH . "resources/admin/views"];
+
+            return $locations;
         });
 
         // Save json data if dev env
@@ -187,17 +173,6 @@ class Dynamic_Forms
     }
 
     /**
-     * The name of the plugin used to uniquely identify it within the context of
-     * WordPress and to define internationalization functionality.
-     *
-     * @return    string    The name of the plugin.
-     */
-    public function get_plugin_name()
-    {
-        return $this->plugin_name;
-    }
-
-    /**
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @return    Loader    Orchestrates the hooks of the plugin.
@@ -205,16 +180,6 @@ class Dynamic_Forms
     public function get_loader()
     {
         return $this->loader;
-    }
-
-    /**
-     * Retrieve the version number of the plugin.
-     *
-     * @return    string    The version number of the plugin.
-     */
-    public function get_version()
-    {
-        return $this->version;
     }
 
     /**
@@ -243,16 +208,16 @@ class Dynamic_Forms
                 foreach ($files as $file) {
                     if ($type == "js") {
                         wp_enqueue_script(
-                            "$this->plugin_name/$file",
+                            self::PLUGIN_NAME . "/$file",
                             DYNAMIC_FORMS_URL . 'dist/' . $file,
                             $bundle->dependencies ?? [],
-                            $this->get_version(),
+                            self::PLUGIN_VERSION,
                             true,
                         );
 
                         // Maybe localize js
                         if (!empty($localize_data)) {
-                            wp_localize_script("$this->plugin_name/$file", str_replace('-', '_', $this->plugin_name), $localize_data);
+                            wp_localize_script(self::PLUGIN_NAME . "/$file", str_replace('-', '_', self::PLUGIN_NAME), $localize_data);
 
                             // Unset after localize since we only need to localize one script per bundle so on next iteration will be skipped
                             unset($localize_data);
@@ -261,10 +226,10 @@ class Dynamic_Forms
 
                     if ($type == "css") {
                         wp_enqueue_style(
-                            "$this->plugin_name/$file",
+                            self::PLUGIN_NAME . "/$file",
                             DYNAMIC_FORMS_URL . 'dist/' . $file,
                             [],
-                            $this->get_version(),
+                            self::PLUGIN_VERSION,
                         );
                     }
                 }
