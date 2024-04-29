@@ -21,7 +21,7 @@ class Form
      *
      * @var int|false
      */
-    public int $context_post_id;
+    public int|bool $context_post_id;
 
     public array $fields;
 
