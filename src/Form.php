@@ -205,7 +205,8 @@ class Form
             return new WP_Error();
         }
 
-        $val = apply_filters('dynamic_forms_before_field_validation_value', $val, $field, $this->post_id);
+        // Allow modifying field before validation rules
+        $val = apply_filters("dynamic_forms/validation/before/val/name={$field['name']}", $val, $field, $this->post_id);
 
         // Check required
         if ($field['required'] && empty($val)) {
@@ -307,12 +308,14 @@ class Form
                 break;
         }
 
-        $error = apply_filters('dynamic_forms_field_validation', $error, $field, $this->post_id);
+        // Maybe add more errors with custom integration
+        $error = apply_filters("dynamic_forms/validation/name={$field['name']}", $error, $field, $this->post_id);
 
         // Set val to field by reference
         $field['value'] = $val;
 
-        $field = apply_filters('dynamic_forms_after_field_validation', $field, $error, $this->post_id);
+        // Allow changing the filed after the whole validation process
+        $field = apply_filters("dynamic_forms/validation/after/field/name={$field['name']}", $field, $error, $this->post_id);
 
         return $error;
 
