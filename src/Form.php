@@ -14,9 +14,14 @@ class Form
      *
      * @var WP_Post
      */
-    private WP_Post $post;
+    private WP_Post $form_post;
 
-    public int $post_id;
+    /**
+     * Post ID of the content where the form is embedded
+     *
+     * @var int|false
+     */
+    public int $context_post_id;
 
     public array $fields;
 
@@ -24,10 +29,10 @@ class Form
 
     public function __construct(int $id, ?int $post_id = null)
     {
-        $this->post = get_post($id);
-        $this->post_id = $post_id ?: get_the_ID();
-        $this->fields = $this->parse_fields(get_field('form_fields', $this->post) ?: []);
-        $this->buttons = get_field('buttons_group', $this->post) ?: [];
+        $this->form_post = get_post($id);
+        $this->context_post_id = $post_id ?: get_the_ID();
+        $this->fields = $this->parse_fields(get_field('form_fields', $this->form_post) ?: []);
+        $this->buttons = get_field('buttons_group', $this->form_post) ?: [];
     }
 
     /**
@@ -113,7 +118,7 @@ class Form
                 continue;
             }
 
-            $field = apply_filters("dynamic_forms/parse/field/name={$field['name']}", $field, $this->post_id);
+            $field = apply_filters("dynamic_forms/parse/field/name={$field['name']}", $field, $this->context_post_id);
             if (empty($field)) {
                 continue;
             }
@@ -127,7 +132,7 @@ class Form
 
         }
 
-        return apply_filters("dynamic_forms/parse/fields/}", $fields, $this->post_id);
+        return apply_filters("dynamic_forms/parse/fields/}", $fields, $this->context_post_id);
     }
 
     /**
@@ -139,7 +144,7 @@ class Form
     {
         return apply_filters('dynamic_forms_calculate_total', [
             'total' => 0,
-        ], $this, $this->post_id);
+        ], $this, $this->context_post_id);
     }
 
     /**
@@ -209,7 +214,7 @@ class Form
         }
 
         // Allow modifying field value before validation rules
-        $val = apply_filters("dynamic_forms/validation/before/val/name={$field['name']}", $val, $field, $this->post_id);
+        $val = apply_filters("dynamic_forms/validation/before/val/name={$field['name']}", $val, $field, $this->context_post_id);
 
         // Check required
         if ($field['required'] && empty($val)) {
@@ -312,13 +317,13 @@ class Form
         }
 
         // Maybe add more errors with custom integration
-        $error = apply_filters("dynamic_forms/validation/name={$field['name']}", $error, $field, $this->post_id);
+        $error = apply_filters("dynamic_forms/validation/name={$field['name']}", $error, $field, $this->context_post_id);
 
         // Set val to field by reference
         $field['value'] = $val;
 
         // Allow changing the filed after the whole validation process
-        $field = apply_filters("dynamic_forms/validation/after/field/name={$field['name']}", $field, $error, $this->post_id);
+        $field = apply_filters("dynamic_forms/validation/after/field/name={$field['name']}", $field, $error, $this->context_post_id);
 
         return $error;
 

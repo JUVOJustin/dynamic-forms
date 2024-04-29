@@ -42,7 +42,7 @@ class Ajax
         // Todo change mail later
         wp_mail(
             "info@ferienwohnungen-iske.de",
-            __("New booking request", 'calendar-booking') . " " . get_the_title($form->post_id),
+            __("New booking request", 'calendar-booking') . " " . get_the_title($form->context_post_id),
             $message
         );
 
