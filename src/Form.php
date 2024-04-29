@@ -113,7 +113,10 @@ class Form
                 continue;
             }
 
-            $field = apply_filters('dynamic_forms_after_field_parse', $field, $this->post_id);
+            $field = apply_filters("dynamic_forms/parse/field/name={$field['name']}", $field, $this->post_id);
+            if (empty($field)) {
+                continue;
+            }
 
             $current_page[$field['name']] = $field;
 
@@ -124,7 +127,7 @@ class Form
 
         }
 
-        return $fields;
+        return apply_filters("dynamic_forms/parse/fields/}", $fields, $this->post_id);
     }
 
     /**
@@ -205,7 +208,7 @@ class Form
             return new WP_Error();
         }
 
-        // Allow modifying field before validation rules
+        // Allow modifying field value before validation rules
         $val = apply_filters("dynamic_forms/validation/before/val/name={$field['name']}", $val, $field, $this->post_id);
 
         // Check required
