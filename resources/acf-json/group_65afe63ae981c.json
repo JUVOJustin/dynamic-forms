@@ -97,44 +97,124 @@
                             "placeholder": ""
                         },
                         {
-                            "key": "field_65b91cbd8d604",
-                            "label": "Beschriftung \"Von\" Feld",
-                            "name": "labelCheckin",
+                            "key": "field_662f53ec9963e",
+                            "label": "Selection Offset",
+                            "name": "day_offset",
                             "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 1,
+                            "type": "number",
+                            "instructions": "Set to -1 to count \"nights\" instead of \"days\"",
+                            "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "50",
+                                "width": "",
                                 "class": "",
                                 "id": ""
                             },
                             "default_value": "",
-                            "maxlength": "",
+                            "min": "",
+                            "max": "",
                             "placeholder": "",
+                            "step": "",
                             "prepend": "",
                             "append": ""
                         },
                         {
-                            "key": "field_65b91cd68d605",
-                            "label": "Beschriftung \"Bis\" Feld",
-                            "name": "labelCheckout",
+                            "key": "field_662f54189963f",
+                            "label": "Labels",
+                            "name": "labels",
                             "aria-label": "",
-                            "type": "text",
+                            "type": "group",
                             "instructions": "",
                             "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "50",
+                                "width": "",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_65b91cbd8d604",
+                                    "label": "Beschriftung \"Von\" Feld",
+                                    "name": "checkin",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": ""
+                                },
+                                {
+                                    "key": "field_65b91cd68d605",
+                                    "label": "Beschriftung \"Bis\" Feld",
+                                    "name": "checkout",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": ""
+                                },
+                                {
+                                    "key": "field_662f543a99641",
+                                    "label": "Beschriftung Einzelwert",
+                                    "name": "one",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "Day",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": ""
+                                },
+                                {
+                                    "key": "field_662f544b99642",
+                                    "label": "Beschriftung Mehrfachwerte",
+                                    "name": "other",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "Days",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": ""
+                                }
+                            ]
                         }
                     ],
                     "min": "",
@@ -423,5 +503,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714245825
+    "modified": 1714378986
 }

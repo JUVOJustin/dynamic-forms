@@ -20,7 +20,7 @@
                 {% for field in page %}
 
                     {% if field.type == "datepicker" %}
-                        {{ inputs.input_daterange(field.name, field.labelCheckin, field.labelCheckout, field.bookedDates, field.config) }}
+                        {{ inputs.input_daterange(field.name, field.labels, field.bookedDates, field.config, field.day_offset) }}
                     {% endif %}
 
                     {% if field.type == "number" %}

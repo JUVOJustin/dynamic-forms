@@ -75,16 +75,16 @@
     </div>
 {% endmacro %}
 
-{% macro input_daterange(name, labelCheckin, labelCheckout, bookedDates, config) %}
+{% macro input_daterange(name, labels, bookedDates, config, day_offset) %}
     <div
             class="input--datepicker {{ name }}"
-            x-data='datepickerInput("{{ name }}", "{{ labelCheckin }}", "{{ labelCheckout }}", {{ bookedDates|json_encode()}}, {{config|json_encode()}})'
+            x-data='datepickerInput("{{ name }}", {{ labels|json_encode()}}, {{ bookedDates|json_encode()}}, {{config|json_encode()}}, "{{ day_offset }}")'
             :id="idWrapper"
             x-id="['{{ name }}']"
             @click.outside="picker.hide()"
     >
         <div class="input--wrapper checkin" id="checkin-wrapper">
-            <label :for="id + '-checkin'" x-text="labelCheckin" x-show="labelCheckin"></label>
+            <label :for="id + '-checkin'" x-text="labels.checkin" x-show="labels.checkin"></label>
             <input
                     type="text"
                     :id="id + '-checkin'"
@@ -93,7 +93,7 @@
         </div>
         -
         <div class="input--wrapper checkout" id="checkout-wrapper">
-            <label :for="id + '-checkout'" x-text="labelCheckin" x-show="labelCheckin"></label>
+            <label :for="id + '-checkout'" x-text="labels.checkout" x-show="labels.checkout"></label>
             <input
                     type="text"
                     :id="id + '-checkout'"

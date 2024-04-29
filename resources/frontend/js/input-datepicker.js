@@ -2,7 +2,7 @@ import {input} from './input';
 import {AmpPlugin, DateTime, easepick, LockPlugin, RangePlugin} from "@easepick/bundle";
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('datepickerInput', function (name, labelCheckin, labelCheckout, bookedDates = [], userConfig = {}) {
+    Alpine.data('datepickerInput', function (name, labels, bookedDates = [], userConfig = {}, day_offset = 0) {
         return {
             ...input(this, name, "", true),
             init() {
@@ -27,10 +27,10 @@ document.addEventListener('alpine:init', () => {
                 window.addEventListener('resize', this.adjustPosition.bind(this));
             },
             type: 'datepicker',
-            labelCheckin: labelCheckin,
-            labelCheckout: labelCheckout,
+            labels: labels,
             bookedDates: bookedDates,
             picker: null,
+            day_offset: Number(day_offset),
             createCalendar() {
                 const checkin = this.$refs.form.querySelector('#' + this.id + '-checkin');
                 const checkout = this.$refs.form.querySelector('#' + this.id + '-checkout');
@@ -66,12 +66,12 @@ document.addEventListener('alpine:init', () => {
                     inline: false,
                     documentClick: true,
                     RangePlugin: {
-                        tooltipNumber(num) {
-                            return num - 1;
+                        tooltipNumber: (num) => {
+                            return num + this.day_offset;
                         },
                         locale: {
-                            one: 'night',
-                            other: 'nights',
+                            one: this.labels.one,
+                            other: this.labels.other,
                         },
                         elementEnd: checkout,
                         repick: false,

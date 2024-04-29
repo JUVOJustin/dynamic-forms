@@ -78,14 +78,14 @@ class Form
             }
 
             // Handle fields custom settings
-            switch($field['type']) {
+            switch ($field['type']) {
                 case "datepicker":
                     $field['bookedDates'] = [];
 
                     // @link https://easepick.com/guide/
                     $field['config'] = [
                         'calendars' => $field['no_calendars'] ?: 1,
-                        'lang' => str_replace('_', '-', get_locale())
+                        'lang'      => str_replace('_', '-', get_locale())
                     ];
 
                     // Maybe set dropdown
@@ -217,7 +217,7 @@ class Form
                 $label = __('Datepicker', 'calendar-booking');
             }
 
-            $error->add('field_empty',sprintf(__('"%s" must be filled', 'calendar-booking'), $label));
+            $error->add('field_empty', sprintf(__('"%s" must be filled', 'calendar-booking'), $label));
             return $error;
         }
 
@@ -233,7 +233,7 @@ class Form
                 }
 
                 if (!empty($field['max']) && $val > $field['max']) {
-                    $error->add('number_too_big', __( sprintf('You need to enter a number smaller than %d', $field['max']), 'calendar-booking'));
+                    $error->add('number_too_big', __(sprintf('You need to enter a number smaller than %d', $field['max']), 'calendar-booking'));
                 }
 
                 $val = floatval($val);
@@ -272,10 +272,18 @@ class Form
                 }
 
                 $val = [
-                    'checkin'  => $checkin,
-                    'checkout' => $checkout,
-                    'days'     => $checkin->diff($checkout)->d
+                    'checkin'     => $checkin,
+                    'checkout'    => $checkout,
                 ];
+
+                $val['span'] = $checkin->diff($checkout)->d + 1;
+
+                // If an offset is given recalculate the span
+                if (!empty($field['day_offset'])){
+                    $offset = intval($field['day_offset']);
+                    $val['span'] = $val['span'] - $offset;
+                }
+
                 break;
             case "email":
                 $var = sanitize_email($val);
