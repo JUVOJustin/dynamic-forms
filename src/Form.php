@@ -132,7 +132,7 @@ class Form
 
         }
 
-        return apply_filters("dynamic_forms/parse/fields/}", $fields, $this->context_post_id);
+        return apply_filters("dynamic_forms/parse/fields", $fields, $this->context_post_id);
     }
 
     /**
