@@ -285,7 +285,7 @@ class Form
                     'checkout'    => $checkout,
                 ];
 
-                $val['span'] = $checkin->diff($checkout)->d + 1;
+                $val['span'] = $checkin->diff($checkout)->d;
 
                 // If an offset is given recalculate the span
                 if (!empty($field['day_offset'])){
