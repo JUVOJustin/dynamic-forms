@@ -24,7 +24,7 @@ class Dynamic_Forms
 {
 
     const PLUGIN_NAME = 'dynamic_forms';
-    const PLUGIN_VERSION = '0.0.1';
+    const PLUGIN_VERSION = '0.0.2';
 
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
