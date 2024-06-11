@@ -51,19 +51,18 @@
                             "label": "Kalenderanzahl",
                             "name": "no_calendars",
                             "aria-label": "",
-                            "type": "number",
+                            "type": "range",
                             "instructions": "",
                             "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": 2,
-                            "min": 1,
-                            "max": 2,
-                            "placeholder": "",
+                            "default_value": 1,
+                            "min": "",
+                            "max": 5,
                             "step": "",
                             "prepend": "",
                             "append": ""
@@ -78,7 +77,7 @@
                             "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -106,7 +105,7 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -117,6 +116,53 @@
                             "step": "",
                             "prepend": "",
                             "append": ""
+                        },
+                        {
+                            "key": "field_6660d89b22cbb",
+                            "label": "Inline",
+                            "name": "inline",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "ui": 1
+                        },
+                        {
+                            "key": "field_6660dc13126b4",
+                            "label": "Inputs",
+                            "name": "inputs",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "none": "None",
+                                "combined": "Combined",
+                                "start-end": "Start and end combined"
+                            },
+                            "default_value": "none",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": ""
                         },
                         {
                             "key": "field_662f54189963f",
@@ -503,5 +549,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714378986
+    "modified": 1717623898
 }
