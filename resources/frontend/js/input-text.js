@@ -1,11 +1,11 @@
 import {input} from './input';
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('textInput', function (name, label, required, placeholder = "") {
+    Alpine.data('textInput', function (field) {
         return {
-            ...input(this, name, label, required),
+            ...input(this, field),
             type: 'text',
-            placeholder: placeholder,
+            placeholder: field.placeholder ?? "",
         };
     });
 });

@@ -1,10 +1,10 @@
-{% macro input_text(label, name, placeholder='', value='', required=false) %}
-    <div class="input--wrapper {{ name }}"
-         x-data="textInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ placeholder  }}')"
-         x-id="['{{ name }}']"
+{% macro input_text(field) %}
+    <div class="input--wrapper"
+         x-data='textInput({{ field|json_encode() }})'
+         :class="name"
          :id="idWrapper"
     >
-        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <label :for="id" x-text="label" x-show="label"></label>
         <input
                 :type="type"
                 :id="id"
@@ -16,52 +16,52 @@
     </div>
 {% endmacro %}
 
-{% macro input_email(label, name, placeholder='', value='', required=false) %}
+{% macro input_email(field) %}
     <div
-            class="input--wrapper {{ name }}"
-            x-data="emailInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ placeholder  }}')"
-            x-id="['{{ name }}']"
+            class="input--wrapper"
+            x-data='emailInput({{field|json_encode()}})'
+            :class="name"
             :id="idWrapper"
     >
-        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <label :for="id" x-text="label" x-show="label"></label>
         <input
                 :type="type"
                 :id="id"
                 :name="name"
                 :required="required"
                 x-model="value"
-                placeholder="{{ placeholder }}"
+                :placeholder="placeholder"
         />
     </div>
 {% endmacro %}
 
-{% macro input_phone(label, name, placeholder='', value='', required=false) %}
+{% macro input_phone(field) %}
     <div
-            class="input--wrapper {{ name }}"
-            x-data="phoneInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ placeholder  }}')"
-            x-id="['{{ name }}']"
+            class="input--wrapper"
+            x-data="phoneInput('{{ field.name }}', '{{ field.label }}', '{{ field.required }}', '{{ field.placeholder }}')"
+            :class="name"
             :id="idWrapper"
     >
-        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <label :for="id" x-text="label" x-show="label"></label>
         <input
                 :type="type"
                 :id="id"
                 :name="name"
                 :required="required"
                 x-model="value"
-                placeholder="{{ placeholder }}"
+                :placeholder="placeholder"
         />
     </div>
 {% endmacro %}
 
-{% macro input_number(label, name, value='', min=1, max='', step=1, required=false) %}
+{% macro input_number(field) %}
     <div
-            class="input--wrapper {{ name }}"
-            x-data="numberInput('{{ name }}', '{{ label }}', '{{ required }}', '{{ min }}', '{{ max }}', '{{ step }}')"
-            x-id="['{{ name }}']"
+            class="input--wrapper"
+            x-data='numberInput({{ field|json_encode() }})'
+            :class="name"
             :id="idWrapper"
     >
-        <label :for="id" x-text="label" x-show="label">{{ label }}</label>
+        <label :for="id" x-text="label" x-show="label"></label>
         <input
                 :type="type"
                 :id="id"
@@ -75,15 +75,15 @@
     </div>
 {% endmacro %}
 
-{% macro input_daterange(name, labels, bookedDates, config, day_offset) %}
+{% macro input_daterange(field) %}
     <div
-            class="input--datepicker {{ name }}"
-            x-data='datepickerInput("{{ name }}", {{ labels|json_encode()}}, {{ bookedDates|json_encode()}}, {{config|json_encode()}}, "{{ day_offset }}")'
+            class="input--datepicker"
+            x-data='datepickerInput({{ field|json_encode() }})'
+            :class="name"
             :id="idWrapper"
-            x-id="['{{ name }}']"
             @click.outside="picker.hide()"
     >
-        <div class="input--wrapper checkin" id="checkin-wrapper">
+        <div class="input--wrapper checkin checkin-wrapper" :class="{'hidden-input': inputs === 'none' }">
             <label :for="id + '-checkin'" x-text="labels.checkin" x-show="labels.checkin"></label>
             <input
                     type="text"
@@ -91,8 +91,9 @@
                     :name="name + '-checkin'"
             />
         </div>
-        -
-        <div class="input--wrapper checkout" id="checkout-wrapper">
+
+        <div x-show="inputs === 'start-end'">-</div>
+        <div x-show="inputs === 'start-end'" class="input--wrapper checkout checkout-wrapper">
             <label :for="id + '-checkout'" x-text="labels.checkout" x-show="labels.checkout"></label>
             <input
                     type="text"

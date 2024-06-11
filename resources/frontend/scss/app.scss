@@ -140,6 +140,15 @@ span.easepick-wrapper {
         font-weight: bold;
       }
     }
+
+    .hidden-input {
+      padding: 0;
+
+      input,
+      label {
+        display: none;
+      }
+    }
   }
 
 }

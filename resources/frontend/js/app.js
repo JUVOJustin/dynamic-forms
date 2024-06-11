@@ -3,6 +3,7 @@ window.Alpine = Alpine
 
 Alpine.data('formDatePicker', function (form_id) {
     return {
+        form_css_id: this.$id('form-'+form_id),
         form_id: form_id,
         values: {},
         responseError: null, // Reactive property for storing any error message
@@ -18,13 +19,12 @@ Alpine.data('formDatePicker', function (form_id) {
         init() {
 
             // Receive values from fields
-            this.$el.addEventListener('setValue', (data) => {
+            window.addEventListener('setValue', (data) => {
                 this.setValue(data.detail.name, data.detail.value);
             });
 
             this.$watch('values', () => {
                 this.requestPrice();
-
                 this.error = "";
             });
 

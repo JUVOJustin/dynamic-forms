@@ -2,10 +2,10 @@ import {input} from './input';
 import {AmpPlugin, DateTime, easepick, LockPlugin, RangePlugin} from "@easepick/bundle";
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('datepickerInput', function (name, labels, bookedDates = [], userConfig = {}, day_offset = 0) {
+    Alpine.data('datepickerInput', function (field) {
         return {
-            ...input(this, name, "", true),
-            init() {
+            ...input(this, field),
+            setup() {
 
                 // Wait till next tick
                 this.$nextTick(() => {
@@ -27,10 +27,9 @@ document.addEventListener('alpine:init', () => {
                 window.addEventListener('resize', this.adjustPosition.bind(this));
             },
             type: 'datepicker',
-            labels: labels,
-            bookedDates: bookedDates,
+            labels: field.labels,
+            bookedDates: field.bookedDates,
             picker: null,
-            day_offset: Number(day_offset),
             createCalendar() {
                 const checkin = this.$refs.form.querySelector('#' + this.id + '-checkin');
                 const checkout = this.$refs.form.querySelector('#' + this.id + '-checkout');
@@ -44,11 +43,12 @@ document.addEventListener('alpine:init', () => {
                         LockPlugin
                     ],
                     setup: (picker) => {
+
                         picker.on('render', (e) => {
                             this.adjustPosition();
                         });
-                        picker.on('select', (e) => {
 
+                        picker.on('select', (e) => {
                             // If picker exists and has a start and end date, set checkin and checkout dates
                             if (e.detail.start && e.detail.end) {
                                 this.value = {
@@ -58,16 +58,16 @@ document.addEventListener('alpine:init', () => {
                             }
                         });
                     },
-                    zIndex: 10,
+                    zIndex: !this.inline ? 10 : 0,
+                    inline: this.inline,
                     format: "DD MMM YYYY",
                     grid: 2,
                     calendars: 2,
                     readonly: false,
-                    inline: false,
                     documentClick: true,
                     RangePlugin: {
                         tooltipNumber: (num) => {
-                            return num + this.day_offset;
+                            return num + Number(this.day_offset ?? 0);
                         },
                         locale: {
                             one: this.labels.one,
@@ -90,10 +90,16 @@ document.addEventListener('alpine:init', () => {
                         },
                     }
                 };
-                config = deepMergeConfigs(config, userConfig);
+                config = deepMergeConfigs(config, this.config ?? {});
                 this.picker = new easepick.create(config);
             },
             adjustPosition() {
+
+                // Initial resize on render if not inline
+                if (this.inline) {
+                    return;
+                }
+
                 const wrapper = this.$el.querySelector('.easepick-wrapper');
 
                 // Make sure container exists
@@ -155,6 +161,7 @@ document.addEventListener('alpine:init', () => {
                     return new DateTime(d, 'YYYY-MM-DD');
                 })
             },
+            // Todo add set value to update picker as well as input fields
         };
     });
 });

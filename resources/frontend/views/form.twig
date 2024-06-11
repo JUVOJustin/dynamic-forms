@@ -1,6 +1,6 @@
 {% import 'input_macro.twig' as inputs %}
 
-<div class="juvo-calendar-booking" x-data="formDatePicker({{ form_id }})" x-cloak>
+<div class="juvo-calendar-booking" x-data="formDatePicker({{ form_id }})" :id="form_css_id" x-cloak>
     <div x-show="isLoading" class="overlay">
         <span class="loading-indicator"></span>
     </div>
@@ -20,23 +20,23 @@
                 {% for field in page %}
 
                     {% if field.type == "datepicker" %}
-                        {{ inputs.input_daterange(field.name, field.labels, field.bookedDates, field.config, field.day_offset) }}
+                        {{ inputs.input_daterange(field) }}
                     {% endif %}
 
                     {% if field.type == "number" %}
-                        {{ inputs.input_number( field.label, field.name, field.min, field.min, field.max, 1, field.required, 'true') }}
+                        {{ inputs.input_number( field) }}
                     {% endif %}
 
                     {% if field.type == "text" %}
-                        {{ inputs.input_text( field.label, field.name, '', field.value, field.required) }}
+                        {{ inputs.input_text(field) }}
                     {% endif %}
 
                     {% if field.type == "email" %}
-                        {{ inputs.input_email( field.label, field.name, '', field.value, field.required) }}
+                        {{ inputs.input_email(field) }}
                     {% endif %}
 
                     {% if field.type == "phone" %}
-                        {{ inputs.input_phone( field.label, field.name, '', field.value, field.required) }}
+                        {{ inputs.input_phone(field) }}
                     {% endif %}
 
                 {% endfor %}

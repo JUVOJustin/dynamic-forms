@@ -1,6 +1,9 @@
-export function input(input, name, label, required) {
+export function input(input, field = {}) {
     return {
         init() {
+
+            this.idWrapper = input.$id(this.name + '-wrapper');
+            this.id = input.$id(this.name);
 
             this.dispatchValue();
 
@@ -8,15 +11,19 @@ export function input(input, name, label, required) {
             input.$watch('value', (value) => {
                 this.dispatchValue();
             })
+
+            if (typeof this.setup === "function") {
+                this.setup();
+            }
+
         },
-        name: name,
-        label: label,
-        idWrapper: input.$id(name + '-wrapper'),
-        id: input.$id(name),
+        ...field, // Stores the data directly passed from php
+        id: "",
+        idWrapper: "",
         value: "",
-        required: required,
         dispatchValue() {
             this.$dispatch('setValue', {
+                form: this.form_id,
                 name: this.name,
                 value: this.value
             })

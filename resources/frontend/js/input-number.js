@@ -1,14 +1,14 @@
 import {input} from './input';
 
 document.addEventListener('alpine:init', () => {
-    Alpine.data('numberInput', function (name, label, required, min = null, max = null, step = 1) {
+    Alpine.data('numberInput', function (field) {
         return {
-            ...input(this, name, label, required),
+            ...input(this, field),
             type: 'number',
-            value: min,
-            min: min,
-            max: max,
-            step: step
+            value: field.value,
+            min: field.min ?? 0,
+            max: field.max,
+            step: field.step ?? 1
         };
     });
 });
