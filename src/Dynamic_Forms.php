@@ -88,6 +88,9 @@ class Dynamic_Forms
         add_filter('acf/settings/save_json/key=group_662d49486998b', function($path): string {
             return DYNAMIC_FORMS_PATH . 'resources/acf-json';
         });
+        add_filter('acf/settings/save_json/key=group_66688407a8cef', function($path): string {
+            return DYNAMIC_FORMS_PATH . 'resources/acf-json';
+        });
         add_filter('acf/settings/save_json/key=post_type_65afc996ee80d', function($path): string {
             return DYNAMIC_FORMS_PATH . 'resources/acf-json';
         });
