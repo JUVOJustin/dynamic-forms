@@ -14,7 +14,10 @@ class Form
      *
      * @var WP_Post
      */
-    private WP_Post $form_post;
+    public WP_Post $form_post;
+
+    public int $form_id;
+    public array $mirroring_forms;
 
     /**
      * Post ID of the content where the form is embedded
@@ -27,12 +30,17 @@ class Form
 
     public array $buttons;
 
+    public bool $readonly;
+
     public function __construct(int $id, ?int $post_id = null)
     {
-        $this->form_post = get_post($id);
+        $this->form_id = $id;
+        $this->form_post = get_post($this->form_id );
         $this->context_post_id = $post_id ?: get_the_ID();
         $this->fields = $this->parse_fields(get_field('form_fields', $this->form_post) ?: []);
         $this->buttons = get_field('buttons_group', $this->form_post) ?: [];
+        $this->readonly =  get_field('readonly_form', $this->form_post) ?: false;
+        $this->mirroring_forms =  get_field('mirroring_form', $this->form_post) ?: [];
     }
 
     /**

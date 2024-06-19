@@ -2,25 +2,26 @@
 
 namespace Dynamic_Forms;
 
-use DateTime;
-use JET_ABAF\Price;
-
 class Ajax
 {
+
+    private Form $form;
 
     function ajax_submit()
     {
         $this->check_pre_conditions();
 
-        $form = new Form($_POST['form_id'], $_POST['post_id']);
+        if ($this->form->readonly) {
+            wp_send_json_error(new \WP_Error('readonly_form', __("This is a readonly form", "calendar-booking")));
+        }
 
         // Add and validate the values to the form
-        $errors = $form->add_value_to_fields($_POST['fields']);
+        $errors = $this->form->add_value_to_fields($_POST['fields']);
         if ($errors->has_errors()) {
             wp_send_json_error($errors);
         }
 
-        $errors = $form->validate_form();
+        $errors = $this->form->validate_form();
         if ($errors->has_errors()) {
             wp_send_json_error($errors);
         }
@@ -29,7 +30,7 @@ class Ajax
         $message = __("Booking request details:", "calendar-booking") . "\n";
 
         // Schleife durch die Formularfelder und Anhängen an die Nachricht
-        foreach ($form->fields as $field) {
+        foreach ($this->form->fields as $field) {
 
             if ($field['type'] == 'datepicker') {
                 $message .= sprintf(__("Period: %s - %s", "calendar-booking"). "\n", $field['value']['checkin']->format('d.m.Y'), $field['value']['checkout']->format('d.m.Y'));
@@ -42,7 +43,7 @@ class Ajax
         // Todo change mail later
         wp_mail(
             "info@ferienwohnungen-iske.de",
-            __("New booking request", 'calendar-booking') . " " . get_the_title($form->context_post_id),
+            __("New booking request", 'calendar-booking') . " " . get_the_title($this->form->context_post_id),
             $message
         );
 
@@ -56,61 +57,23 @@ class Ajax
     {
         $this->check_pre_conditions();
 
-        // Get the apartment post id
-        $post_id = intval($_POST['post_id']);
-        if (empty($post_id)) {
-            wp_send_json_error(new \WP_Error('invalid_post_id', 'Invalid post id'));
-        }
-
         // Filter the fields with values
         $fields = array_filter($_POST['fields'], function ($val) {
             return !empty($val);
         });
 
-        $form = new Form($_POST['form_id'], $_POST['post_id']);
-
         // Add and validate the values to the form
-        $errors = $form->add_value_to_fields($fields);
+        $errors = $this->form->add_value_to_fields($fields);
         if ($errors->has_errors()) {
             wp_send_json_error($errors);
         }
 
-        $costs = $form->get_costs();
+        $costs = $this->form->get_costs();
         if ($costs instanceof \WP_Error && $costs->has_errors()) {
             wp_send_json_error($costs);
         }
 
-        wp_send_json_success($form->get_costs());
-    }
-
-    // Handle the Ajax request on the server side
-    function ajax_get_data_callback()
-    {
-
-       $this->check_pre_conditions();
-
-        $post_id = $_POST['post_id'];
-
-        $data = $this->normalize_jet_bookings($post_id);
-
-        wp_send_json_success($data);
-    }
-
-    private function normalize_jet_bookings(int $post_id): array
-    {
-
-        $jet_data = jet_abaf()->assets->get_localized_data($post_id); //@phpstan-ignore-line
-
-        return [
-            "bookedDates" => $jet_data['booked_dates'],
-            "easepick"    => [
-                "LockPlugin" => [
-                    "minDate" => current_time('Y-m-d\TH:i:s.v\Z'),
-                    "minDays" => $jet_data['min_days'] + $jet_data['start_day_offset'] ?: 0
-                ]
-            ]
-
-        ];
+        wp_send_json_success($this->form->get_costs());
     }
 
     /**
@@ -118,7 +81,8 @@ class Ajax
      *
      * @return void
      */
-    private function check_pre_conditions() {
+    private function check_pre_conditions(): void
+    {
         if ( ! wp_verify_nonce( $_POST['nonce'], 'dynamic_forms_nonce' ) ) {
             wp_send_json_error([
                 'message' => __('Invalid nonce', 'calendar-booking')
@@ -131,11 +95,18 @@ class Ajax
             ]);
         }
 
+        $post_id = intval($_POST['post_id']);
+        if (empty($post_id)) {
+            wp_send_json_error(new \WP_Error('invalid_post_id', 'Invalid post id'));
+        }
+
         if (empty($_POST['fields'])) {
             wp_send_json_error([
                 'message' => __('Missing fields parameter','calendar-booking')
             ]);
         }
+
+        $this->form = new Form($_POST['form_id'], $_POST['post_id']);
     }
 
 }

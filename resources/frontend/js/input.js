@@ -20,12 +20,21 @@ export function input(input, field = {}) {
         ...field, // Stores the data directly passed from php
         id: "",
         idWrapper: "",
-        value: "",
         dispatchValue() {
+
+            let forms = [];
+
+            // If mirroring forms are set up add them to the recipients
+            if (this.mirroring_forms) {
+                this.mirroring_forms.forEach((form) => {
+                    forms.push(form);
+                })
+            }
+
             this.$dispatch('setValue', {
-                form: this.form_id,
+                forms: forms,
                 name: this.name,
-                value: this.value
+                value: this.values[this.name]
             })
         }
     };

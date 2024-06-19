@@ -10,7 +10,7 @@
                 :id="id"
                 :name="name"
                 :required="required"
-                x-model="value"
+                x-model="values[name]"
                 placeholder="{{ placeholder }}"
         />
     </div>
@@ -29,7 +29,7 @@
                 :id="id"
                 :name="name"
                 :required="required"
-                x-model="value"
+                x-model="values[name]"
                 :placeholder="placeholder"
         />
     </div>
@@ -48,7 +48,7 @@
                 :id="id"
                 :name="name"
                 :required="required"
-                x-model="value"
+                x-model="values[name]"
                 :placeholder="placeholder"
         />
     </div>
@@ -67,7 +67,7 @@
                 :id="id"
                 :name="name"
                 :required="required"
-                x-model="value"
+                x-model="values[name]"
                 :min="min"
                 :max="max"
                 :step="step"

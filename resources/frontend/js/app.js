@@ -1,10 +1,10 @@
 import Alpine from 'alpinejs'
 window.Alpine = Alpine
 
-Alpine.data('formDatePicker', function (form_id) {
+Alpine.data('formDatePicker', function (form) {
     return {
-        form_css_id: this.$id('form-'+form_id),
-        form_id: form_id,
+        ...form,
+        form_css_id: this.$id('form-'+ form.form_id),
         values: {},
         responseError: null, // Reactive property for storing any error message
         costs: {
@@ -20,6 +20,9 @@ Alpine.data('formDatePicker', function (form_id) {
 
             // Receive values from fields
             window.addEventListener('setValue', (data) => {
+                if (!data.detail.forms || !data.detail.forms.includes(this.form_id)) {
+                    return;
+                }
                 this.setValue(data.detail.name, data.detail.value);
             });
 
@@ -30,6 +33,11 @@ Alpine.data('formDatePicker', function (form_id) {
 
         },
         requestPrice() {
+
+            if (this.readonly) {
+                return;
+            }
+
             this.isPriceLoading = true;
             $.ajax({
                 url: dynamic_forms.ajax_url,
@@ -54,6 +62,11 @@ Alpine.data('formDatePicker', function (form_id) {
             });
         },
         submit() {
+
+            if (this.readonly) {
+                return;
+            }
+
             this.isLoading = true;
             $.ajax({
                 url: dynamic_forms.ajax_url,

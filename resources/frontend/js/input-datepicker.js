@@ -51,7 +51,7 @@ document.addEventListener('alpine:init', () => {
                         picker.on('select', (e) => {
                             // If picker exists and has a start and end date, set checkin and checkout dates
                             if (e.detail.start && e.detail.end) {
-                                this.value = {
+                                this.values[this.name] = {
                                     checkin: e.detail.start.format('YYYY-MM-DD'),
                                     checkout: e.detail.end.format('YYYY-MM-DD')
                                 }

@@ -1,6 +1,6 @@
 {% import 'input_macro.twig' as inputs %}
 
-<div class="juvo-calendar-booking" x-data="formDatePicker({{ form_id }})" :id="form_css_id" x-cloak>
+<div class="juvo-calendar-booking" x-data='formDatePicker({{ form|json_encode() }})' :id="form_css_id" x-cloak>
     <div x-show="isLoading" class="overlay">
         <span class="loading-indicator"></span>
     </div>
