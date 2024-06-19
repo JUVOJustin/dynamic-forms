@@ -3,7 +3,7 @@
   "type": "module",
   "$schema": "https://bud.js.org/bud.package.json",
   "devDependencies": {
-    "@roots/bud": "6.20.0",
+    "@roots/bud": "6.22.0",
     "@roots/bud-preset-recommend": "6.20.0",
     "@roots/bud-preset-wordpress": "6.20.0",
     "@roots/bud-sass": "6.20.0"
